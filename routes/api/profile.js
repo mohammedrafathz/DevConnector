@@ -80,12 +80,12 @@ router.get("/all", (req, res) => {
 
   Profile.find()
     .populate("user", ["name", "avatar"])
-    .then(profile => {
-      if (!profile) {
-        errors.noprofile = "There are no profile";
+    .then(profiles => {
+      if (!profiles) {
+        errors.noprofile = "There are no profiles";
         return res.status(404).json(errors);
       }
-      res.json(profile);
+      res.json(profiles);
     })
     .catch(err => res.status(404).json(err));
 });
@@ -168,7 +168,6 @@ router.post(
         current: req.body.current,
         description: req.body.description
       };
-      console.log(newExp);
 
       profile.experience.unshift(newExp);
 
@@ -212,8 +211,8 @@ router.post(
 // @desc    Delete user and profile
 // @access  Private
 router.delete(
-  '/',
-  passport.authenticate('jwt', { session: false }),
+  "/",
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Profile.findOneAndRemove({ user: req.user.id }).then(() => {
       User.findOneAndRemove({ _id: req.user.id }).then(() =>
@@ -227,7 +226,7 @@ router.delete(
 //@desc    Delete Experience from the profile
 //@access  Private
 router.delete(
-  "/expirence/:exp_id",
+  "/experience/:exp_id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Profile.findOne({ user: req.user.id })
