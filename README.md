@@ -1,7 +1,7 @@
 # DevConnector
 A social networking website for developers.
 
-clone the repo using and install the node_modules for server and client
+clone the repo & install the node_modules for server and client
 # Clone
 ```
 > git clone https://github.com/risky-boy/DevConnector.git
